@@ -5,12 +5,17 @@
 makeCacheMatrix <- function(x = matrix()) {
   im <- NULL
   setMtrx <- function(y){    
-    x <<- y
-    im <<- NULL
+    x <<- y         ## assigns 'x' and 'im' in the parent environment programatically
+    im <<- NULL     ## this mimics somewhat global variables in say 'C' 
+                    ## which will help the function cacheSolve return 'im' from
+                    ## the pparent environment if it is assigned a value without
+                    ## having to recalculate it
   }
-  getMtrx <- function() x
-  setInvertM <- function(invrt) im <<- invrt
-  getInvertM <- function() im
+  getMtrx <- function() x   ## get interface funcion for the input matrix
+  setInvertM <- function(invrt) im <<- invrt  ## set interface for inverted matrix
+  getInvertM <- function() im                 ## set interface for inverted matrix
+  
+  ## list for advertising makeCacheMatrix "class" interface functions
   list(setMtrx = setMtrx, getMtrx = getMtrx, setInvertM = setInvertM, getInvertM = getInvertM)
 }
 
